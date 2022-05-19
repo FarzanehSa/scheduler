@@ -11,7 +11,7 @@ export default function InterviewerListItem({ name, avatar, selected, setIntervi
   )
 
   return (
-    <li className={interviewerLisClass} onClick={setInterviewer}>
+    <li className={interviewerLisClass} onClick={setInterviewer} selected={selected}>
       <img
         className="interviewers__item-image"
         src={ avatar }
