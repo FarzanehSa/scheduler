@@ -1,3 +1,4 @@
+// return all appointments (array) for that day.
 export function getAppointmentsForDay(state, day) {
 
   const aimDay = state.days.filter(row => row.name === day)
@@ -8,7 +9,27 @@ export function getAppointmentsForDay(state, day) {
   }
   // console.log('🟢🟢 appointments',result);  // 🚨🚨🚨
   return result;
+}
 
+// will return interview object that has 2 keys,
+// student = (string) and interviewer = (object)
+// if there is no interview => return null
+export function getInterview(state, interview) {
+
+  // console.log('⚪️',state);        // 🚨🚨🚨
+  // console.log('⚪️⚪️',interview);  // 🚨🚨🚨
+  if (interview) {
+    const id = interview.interviewer;
+    return ({
+      student:interview.student,
+      interviewer: {
+        id: id,
+        name: state.interviewers[id].name,
+        avatar: state.interviewers[id].avatar
+      }
+    })
+  }
+  return null;
 }
 
 
