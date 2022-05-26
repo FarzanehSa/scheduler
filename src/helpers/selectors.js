@@ -32,4 +32,13 @@ export function getInterview(state, interview) {
   return null;
 }
 
+// return all interviewers (array) for that day.
+export function getInterviewersForDay(state, day) {
 
+  const aimDay = state.days.filter(row => row.name === day)
+  let result = []
+  if (aimDay.length > 0) {
+    result = (aimDay[0].interviewers).map(row => state.interviewers[row])
+  }
+  return result;
+}
