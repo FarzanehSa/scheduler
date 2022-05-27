@@ -22,12 +22,40 @@ export default function Application(props) {
 
   // ⚪️ get appointment for specific day
   const dailyAppointments = getAppointmentsForDay(state, state.day);
+  // ⚪️ get interviewers for specific day
   const dailyInterviwers = getInterviewersForDay(state, state.day);
+
+  function bookInterview(id, interview) {
+    // console.log(id, interview);    //🚨🚨🚨
+    const appointment = {
+      ...state.appointments[id],
+      interview: {...interview}
+    }
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    }
+    // correct path but confused me so same result but different way to say it
+    const putApiPromise = axios.put(`/api/appointments/${id}`, {interview});
+    const secondPromise = putApiPromise.then(() => setState({...state, appointments}))
+    return secondPromise;
+    // return (
+    // axios.put(`/api/appointments/${id}`, {interview})
+    //   .then(() => setState({...state, appointments}))
+    // )
+  }
 
   let appointmentsArray = dailyAppointments.map(appointment => {
     const interview = getInterview(state, appointment.interview)
     return (
-      <Appointment key={appointment.id}  time={appointment.time} interview={interview} interviewers={dailyInterviwers} />
+      <Appointment 
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
+        interview={interview}
+        interviewers={dailyInterviwers} 
+        bookInterview={bookInterview}
+        />
     )
   })
   // console.log('🧾', appointmentsArray);  //🚨🚨🚨
