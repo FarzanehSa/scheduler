@@ -19,11 +19,28 @@ export default function Application(props) {
   });
 
   const setDay = day => setState({...state, day});
-
-  // ⚪️ get appointment for specific day
-  const dailyAppointments = getAppointmentsForDay(state, state.day);
+  
   // ⚪️ get interviewers for specific day
   const dailyInterviwers = getInterviewersForDay(state, state.day);
+  
+  // ⚪️ get appointment for specific day
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
+
+ const appointmentsArray = dailyAppointments.map(appointment => {
+    const interview = getInterview(state, appointment.interview)
+    return (
+      <Appointment 
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
+        interview={interview}
+        interviewers={dailyInterviwers} 
+        bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
+        />
+    )
+  })
+  // console.log('🧾', appointmentsArray);  //🚨🚨🚨
 
   function bookInterview(id, interview) {
     // console.log(id, interview);    //🚨🚨🚨
@@ -45,20 +62,24 @@ export default function Application(props) {
     // )
   }
 
-  let appointmentsArray = dailyAppointments.map(appointment => {
-    const interview = getInterview(state, appointment.interview)
+  function cancelInterview(id) {
+    console.log("delete", id);
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    }
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    }
     return (
-      <Appointment 
-        key={appointment.id}
-        id={appointment.id}
-        time={appointment.time}
-        interview={interview}
-        interviewers={dailyInterviwers} 
-        bookInterview={bookInterview}
-        />
+      axios.delete(`/api/appointments/${id}`)
+      .then(() => setState({...state, appointments}))
     )
-  })
-  // console.log('🧾', appointmentsArray);  //🚨🚨🚨
+    
+  }
+
+
 
   useEffect(() => {
     // ⚪️ request to run once after the component renders for the first time
