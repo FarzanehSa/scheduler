@@ -22,7 +22,7 @@ export default function useVisualMode(initMood) {
       setMode(newMode)
     }
   };
-  console.log('👀',history);    // 🚨🚨🚨
+  // console.log('👀',history);    // 🚨🚨🚨
   return { mode, transition, back };
 }
 
