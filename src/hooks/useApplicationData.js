@@ -24,13 +24,19 @@ export default function useApplicationData() {
       [id]: appointment
     }
     // correct path but confused me so same result but different way to say it
-    const putApiPromise = axios.put(`/api/appointments/${id}`, {interview});
-    const secondPromise = putApiPromise.then(() => setState({...state, appointments}))
-    return secondPromise;
-    // return (
-    // axios.put(`/api/appointments/${id}`, {interview})
-    //   .then(() => setState({...state, appointments}))
-    // )
+    // const putApiPromise = axios.put(`/api/appointments/${id}`, {interview});
+    // const secondPromise = putApiPromise.then(() => setState({...state, appointments}))
+    // return secondPromise;
+    return (
+    axios.put(`/api/appointments/${id}`, {interview})
+      .then(() => {
+        setState({...state, appointments})
+        axios.get("/api/days").then(result => {
+          console.log(result.data)
+          setState(prev => ({...prev, days: result.data }));
+        })
+      })
+    )
   }
 
   function cancelInterview(id) {
@@ -45,7 +51,11 @@ export default function useApplicationData() {
     }
     return (
       axios.delete(`/api/appointments/${id}`)
-      .then(() => setState({...state, appointments}))
+      .then(() => {
+        setState({...state, appointments})
+        axios.get("/api/days").then(result => {
+          setState(prev => ({...prev, days: result.data }));})
+      })
     )
   }
 

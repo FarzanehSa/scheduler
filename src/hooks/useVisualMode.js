@@ -7,7 +7,6 @@ export default function useVisualMode(initMood) {
 
   function transition(newMode, replaceFlag = false) {
     setMode(newMode);
-    console.log(replaceFlag);
     if (!replaceFlag) {
       setHistory( prev => ([...prev, newMode]) )  
     } else {
