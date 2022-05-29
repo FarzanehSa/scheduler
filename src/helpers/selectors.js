@@ -22,12 +22,11 @@ export function getInterview(state, interview) {
     const id = interview.interviewer;
     return ({
       student:interview.student,
-      interviewer: state.interviewers[interview.interviewer]
-      // interviewer: {
-      //   id: id,
-      //   name: state.interviewers[id].name,
-      //   avatar: state.interviewers[id].avatar
-      // }
+      interviewer: {
+        id: id,
+        name: state.interviewers[id].name,
+        avatar: state.interviewers[id].avatar
+      }
     })
   }
   return null;
