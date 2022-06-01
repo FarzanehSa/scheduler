@@ -1,4 +1,4 @@
-import { useReducer,useEffect } from "react";
+import { useReducer, useEffect } from "react";
 import axios from 'axios';
 
 import {SET_DAY, SET_APPLICATION_DATA, SET_INTERVIEW, reducer} from '../reducers/applicationData';
@@ -18,20 +18,19 @@ export default function useApplicationData() {
   function bookInterview(id, interview) {
     // console.log(id, interview);    //🚨🚨🚨
 
-    return axios.put(`/api/appointments/${id}`, {interview})
+    return (axios.put(`/api/appointments/${id}`, {interview})
       .then(() => {
-        dispatch({type: SET_INTERVIEW, id, interview})
-      })
+        dispatch({type: SET_INTERVIEW, id, interview});
+      }));
   }
 
   function cancelInterview(id) {
     // console.log("delete", id);    //🚨🚨🚨
 
-    return axios.delete(`/api/appointments/${id}`)
+    return (axios.delete(`/api/appointments/${id}`)
       .then(() => {
-        dispatch({type: SET_INTERVIEW, id, interview: null})
-      })
-    
+        dispatch({type: SET_INTERVIEW, id, interview: null});
+      }));
   }
 
   useEffect(() => {
@@ -48,10 +47,10 @@ export default function useApplicationData() {
       const days = result[0].data;
       const appointments = result[1].data;
       const interviewers = result[2].data; 
-      
+
       dispatch({ type: SET_APPLICATION_DATA, days, appointments, interviewers });
     })
-  },[])
+  },[]);
 
-  return {state, setDay, bookInterview, cancelInterview }
+  return {state, setDay, bookInterview, cancelInterview };
 }
