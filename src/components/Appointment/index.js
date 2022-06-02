@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 import "components/Appointment/styles.scss"
 // Custom Hook
@@ -29,6 +29,16 @@ export default function Appointment({id, time, interview, interviewers, bookInte
     interview ? SHOW : EMPTY
   );
 
+  // After implementing websocket, we need to update visual mode!
+  useEffect(() => {
+    if (mode === EMPTY && interview) {
+      transition(SHOW);
+    }
+    if (mode === SHOW && !interview) {
+      transition(EMPTY);
+    }
+  },[interview, mode, transition]);
+
   function save(name, interviewer) {
     if (name && interviewer) {
       const interview = {
@@ -44,7 +54,6 @@ export default function Appointment({id, time, interview, interviewers, bookInte
   } 
   
   function remove() {
-
     if (mode === CONFIRM) {
       transition(DELETING, true)
       cancelInterview(id)
@@ -55,13 +64,12 @@ export default function Appointment({id, time, interview, interviewers, bookInte
     }
   }
   
-
   //console.log('🟣',interview && interview.id)
   return (
     <article className="appointment">
       <Header time={time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-      {mode === SHOW && <Show 
+      {mode === SHOW && interview && <Show 
         student={ interview.student }
         interviewer={ interview.interviewer } 
         onEdit={() => transition(EDIT)}

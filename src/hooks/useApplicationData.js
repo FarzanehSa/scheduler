@@ -3,8 +3,18 @@ import axios from 'axios';
 
 import {SET_DAY, SET_APPLICATION_DATA, SET_INTERVIEW, reducer} from '../reducers/applicationData';
 
+
 export default function useApplicationData() {
   
+  const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+
+  // webSocket.onopen = function (event) {
+  //   webSocket.send("ping");
+  // }
+  // webSocket.onmessage = function (event) {
+  //   console.log( "Message Received: ",event.data);
+  // }
+
   // ⚪️ Combined State for day, days and appointment
   const [state, dispatch] = useReducer(reducer, {
     day:"Monday",
@@ -21,7 +31,8 @@ export default function useApplicationData() {
     return (axios.put(`/api/appointments/${id}`, {interview})
       .then(() => {
         dispatch({type: SET_INTERVIEW, id, interview});
-      }));
+      })
+    );
   }
 
   function cancelInterview(id) {
@@ -30,10 +41,18 @@ export default function useApplicationData() {
     return (axios.delete(`/api/appointments/${id}`)
       .then(() => {
         dispatch({type: SET_INTERVIEW, id, interview: null});
-      }));
+      })
+    );
   }
 
   useEffect(() => {
+    
+    webSocket.onmessage = function (event) {
+      const recivedData = JSON.parse(event.data);
+      dispatch({...recivedData});
+    }
+
+
     // ⚪️ request to run once after the component renders for the first time
     Promise.all([
       axios.get("/api/days"),
@@ -50,6 +69,11 @@ export default function useApplicationData() {
 
       dispatch({ type: SET_APPLICATION_DATA, days, appointments, interviewers });
     })
+
+    return () => {
+      webSocket.close(); 
+    }
+
   },[]);
 
   return {state, setDay, bookInterview, cancelInterview };
