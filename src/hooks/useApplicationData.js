@@ -3,10 +3,9 @@ import axios from 'axios';
 
 import {SET_DAY, SET_APPLICATION_DATA, SET_INTERVIEW, reducer} from '../reducers/applicationData';
 
+const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
 
 export default function useApplicationData() {
-  
-  const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
 
   // webSocket.onopen = function (event) {
   //   webSocket.send("ping");
@@ -70,9 +69,7 @@ export default function useApplicationData() {
       dispatch({ type: SET_APPLICATION_DATA, days, appointments, interviewers });
     })
 
-    return () => {
-      webSocket.close(); 
-    }
+    return () => webSocket.close(); 
 
   },[]);
 
