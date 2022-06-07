@@ -40,17 +40,14 @@ export default function Appointment({id, time, interview, interviewers, bookInte
   },[interview, mode, transition]);
 
   function save(name, interviewer) {
-    if (name && interviewer) {
-      const interview = {
-        student: name,
-        interviewer
-      }
-      transition(SAVING)
-      bookInterview(id, interview)
-      .then(() => transition(SHOW))
-      .catch(() => transition(ERROR_SAVE, true))
-
+    const interview = {
+      student: name,
+      interviewer
     }
+    transition(SAVING)
+    bookInterview(id, interview)
+    .then(() => transition(SHOW))
+    .catch(() => transition(ERROR_SAVE, true))
   } 
   
   function remove() {
