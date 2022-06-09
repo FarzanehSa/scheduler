@@ -1,7 +1,7 @@
 import { useReducer, useEffect } from "react";
 import axios from 'axios';
 
-import {SET_DAY, SET_APPLICATION_DATA, SET_INTERVIEW, reducer} from '../reducers/applicationData';
+import reducer, {SET_DAY, SET_APPLICATION_DATA, SET_INTERVIEW} from '../reducers/application';
 
 const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
 
@@ -50,7 +50,6 @@ export default function useApplicationData() {
       const recivedData = JSON.parse(event.data);
       dispatch({...recivedData});
     }
-
 
     // ⚪️ request to run once after the component renders for the first time
     Promise.all([

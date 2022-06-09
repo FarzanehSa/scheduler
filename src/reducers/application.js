@@ -2,7 +2,7 @@ const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
 
-function reducer(state, action) {
+export default function reducer(state, action) {
 
   const getSpotsForDay = (day, appointments) => {
     let spots = 0;
@@ -65,4 +65,4 @@ function reducer(state, action) {
   };
 };
 
-export {SET_DAY, SET_APPLICATION_DATA, SET_INTERVIEW, reducer};
+export {SET_DAY, SET_APPLICATION_DATA, SET_INTERVIEW};
