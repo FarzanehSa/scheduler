@@ -5,11 +5,10 @@ import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
 
-import { getAppointmentsForDay, getInterview, getInterviewersForDay} from "helpers/selectors";
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
 // Custom Hook
 import useApplicationData from "hooks/useApplicationData";
-
 
 export default function Application(props) {
   
@@ -27,19 +26,21 @@ export default function Application(props) {
   const dailyAppointments = getAppointmentsForDay(state, state.day);
 
  const appointmentsArray = dailyAppointments.map(appointment => {
-    const interview = getInterview(state, appointment.interview)
+    const interview = getInterview( state, appointment.interview );
+
     return (
       <Appointment 
-        key={appointment.id}
-        id={appointment.id}
-        time={appointment.time}
-        interview={interview}
-        interviewers={dailyInterviwers} 
-        bookInterview={bookInterview}
-        cancelInterview={cancelInterview}
-        />
+        key={ appointment.id }
+        id={ appointment.id }
+        time={ appointment.time }
+        interview={ interview }
+        interviewers={ dailyInterviwers }
+        bookInterview={ bookInterview }
+        cancelInterview={ cancelInterview }
+      />
     )
-  })
+  });
+  
   // console.log('🧾', appointmentsArray);  //🚨🚨🚨
 
   return (
@@ -54,9 +55,9 @@ export default function Application(props) {
         <nav className="sidebar__menu">
 
           <DayList
-            days={state.days}
-            value={state.day}
-            onChange={setDay}
+            days={ state.days }
+            value={ state.day }
+            onChange={ setDay }
           />
 
         </nav>
@@ -67,7 +68,7 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {appointmentsArray}
+        { appointmentsArray }
         <Appointment key="last" time="5pm" />
       </section>
     </main>

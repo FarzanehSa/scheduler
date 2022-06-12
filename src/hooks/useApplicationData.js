@@ -1,17 +1,15 @@
 import { useReducer, useEffect } from "react";
 import axios from 'axios';
 
-import reducer, {SET_DAY, SET_APPLICATION_DATA, SET_INTERVIEW} from '../reducers/application';
+import reducer, { SET_DAY, SET_APPLICATION_DATA, SET_INTERVIEW } from '../reducers/application';
 
 const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
 
 export default function useApplicationData() {
 
+  // 📝 Test WEB SOCKET
   // webSocket.onopen = function (event) {
   //   webSocket.send("ping");
-  // }
-  // webSocket.onmessage = function (event) {
-  //   console.log( "Message Received: ",event.data);
   // }
 
   // ⚪️ Combined State for day, days and appointment
@@ -22,14 +20,14 @@ export default function useApplicationData() {
     interviewers:{}
   });
 
-  const setDay = day => dispatch({type: SET_DAY, day});
+  const setDay = day => dispatch({ type: SET_DAY, day });
 
   function bookInterview(id, interview) {
     // console.log(id, interview);    //🚨🚨🚨
 
-    return (axios.put(`/api/appointments/${id}`, {interview})
+    return (axios.put(`/api/appointments/${id}`, { interview })
       .then(() => {
-        dispatch({type: SET_INTERVIEW, id, interview});
+        dispatch({ type: SET_INTERVIEW, id, interview });
       })
     );
   }
@@ -39,7 +37,7 @@ export default function useApplicationData() {
 
     return (axios.delete(`/api/appointments/${id}`)
       .then(() => {
-        dispatch({type: SET_INTERVIEW, id, interview: null});
+        dispatch({ type: SET_INTERVIEW, id, interview: null });
       })
     );
   }
@@ -48,7 +46,7 @@ export default function useApplicationData() {
     
     webSocket.onmessage = function (event) {
       const recivedData = JSON.parse(event.data);
-      dispatch({...recivedData});
+      dispatch({ ...recivedData });
     }
 
     // ⚪️ request to run once after the component renders for the first time
@@ -72,5 +70,5 @@ export default function useApplicationData() {
 
   },[]);
 
-  return {state, setDay, bookInterview, cancelInterview };
+  return { state, setDay, bookInterview, cancelInterview };
 }

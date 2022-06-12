@@ -13,7 +13,7 @@ import Confirm from "./Confirm";
 import Error from "./Error";
 
 
-export default function Appointment({id, time, interview, interviewers, bookInterview, cancelInterview}) {
+export default function Appointment({ id, time, interview, interviewers, bookInterview, cancelInterview }) {
   
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
@@ -43,56 +43,56 @@ export default function Appointment({id, time, interview, interviewers, bookInte
     const interview = {
       student: name,
       interviewer
-    }
-    transition(SAVING)
+    };
+    transition(SAVING);
     bookInterview(id, interview)
     .then(() => transition(SHOW))
-    .catch(() => transition(ERROR_SAVE, true))
-  } 
+    .catch(() => transition(ERROR_SAVE, true));
+  };
   
   function remove() {
     if (mode === CONFIRM) {
-      transition(DELETING, true)
+      transition(DELETING, true);
       cancelInterview(id)
       .then(() => transition(EMPTY))
-      .catch(() => transition(ERROR_DELETE, true))
+      .catch(() => transition(ERROR_DELETE, true));
     } else {
-      transition(CONFIRM)
-    }
-  }
+      transition(CONFIRM);
+    };
+  };
   
   //console.log('🟣',interview && interview.id)
   return (
     <article className="appointment" data-testid="appointment">
-      <Header time={time} />
-      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
+      <Header time={ time } />
+      {mode === EMPTY && <Empty onAdd={ () => transition(CREATE) } />}
       {mode === SHOW && interview && <Show 
         student={ interview.student }
         interviewer={ interview.interviewer } 
         onEdit={() => transition(EDIT)}
-        onDelete={remove} />}
+        onDelete={ remove } />}
       {mode === CREATE && <Form 
-        interviewers={interviewers}
-        onSave={save}
-        onCancel={back} />}
+        interviewers={ interviewers }
+        onSave={ save }
+        onCancel={ back } />}
       {mode === SAVING && <Status message="Saving" />}
       {mode === DELETING && <Status message="Deleting" />}
       {mode === CONFIRM && <Confirm 
         message="Are you sure you would like to delete?"
-        onConfirm={remove}
-        onCancel={back}/>}
+        onConfirm={ remove }
+        onCancel={ back }/>}
       {mode === EDIT && <Form 
-        interviewers={interviewers}
-        onSave={save}
-        onCancel={back} 
-        student={interview.student}
-        interviewer={interview.interviewer.id}/>}
+        interviewers={ interviewers }
+        onSave={ save }
+        onCancel={ back } 
+        student={ interview.student }
+        interviewer={ interview.interviewer.id }/>}
       {mode === ERROR_SAVE && <Error
           message="Could not update appointment."
-          onClose={back}/>}
+          onClose={ back }/>}
       {mode === ERROR_DELETE && <Error
           message="Could not cancel appointment."
-          onClose={back}/>}
+          onClose={ back }/>}
     </article>
   )
 }

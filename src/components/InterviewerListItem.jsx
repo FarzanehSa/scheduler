@@ -3,21 +3,21 @@ import classNames from 'classnames';
 
 import "components/InterviewerListItem.scss";
 
-export default function InterviewerListItem({ name, avatar, selected, setInterviewer}) {
+export default function InterviewerListItem({ name, avatar, selected, setInterviewer }) {
 
-  let interviewerLisClass = classNames(
+  let interviewerListClass = classNames(
     "interviewers__item",
-    {"interviewers__item--selected" : selected}
-  )
+    { "interviewers__item--selected": selected }
+  );
 
   return (
-    <li className={interviewerLisClass} onClick={setInterviewer} selected={selected}>
+    <li className={ interviewerListClass } onClick={ setInterviewer } selected={ selected }>
       <img
         className="interviewers__item-image"
         src={ avatar }
         alt={ name }
       />
-      {selected && name }
+      { selected && name }
     </li>
   )
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Status({message}) {
+export default function Status({ message }) {
   
   return (
     <main className="appointment__card appointment__card--status">
@@ -9,7 +9,7 @@ export default function Status({message}) {
         src="images/status.png"
         alt="Loading"
       />
-      <h1 className="text--semi-bold">{message}</h1>
+      <h1 className="text--semi-bold">{ message }</h1>
     </main>
   )
 }

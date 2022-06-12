@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Button from "components/Button";
 import InterviewerList from "components/InterviewerList";
 
-export default function Form({interviewers, onSave, onCancel, ...props}) {
+export default function Form({ interviewers, onSave, onCancel, ...props }) {
   
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
@@ -13,12 +13,12 @@ export default function Form({interviewers, onSave, onCancel, ...props}) {
     setStudent("");
     setInterviewer(null);
     setError("");
-  }
+  };
 
   const cancel = () => {
     reset();
     onCancel();
-  }
+  };
 
   const validate = () => {
     if (student.trim() === "") {
@@ -31,7 +31,7 @@ export default function Form({interviewers, onSave, onCancel, ...props}) {
     }
     setError("");
     onSave(student, interviewer);
-  }
+  };
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -43,21 +43,21 @@ export default function Form({interviewers, onSave, onCancel, ...props}) {
             type="text"
             placeholder="Enter Student Name"
             data-testid="student-name-input"
-            value={student}
+            value={ student }
             onChange={event => {setStudent(event.target.value)}}
           />
         </form>
         <section className="appointment__validation">{error}</section>
         <InterviewerList 
-          interviewers={interviewers}
-          onChange={setInterviewer}
-          value={interviewer}
+          interviewers={ interviewers }
+          onChange={ setInterviewer }
+          value={ interviewer }
         />
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
-          <Button danger onClick={cancel} >Cancel</Button>
-          <Button confirm onClick={() => validate()} >Save</Button>
+          <Button danger onClick={ cancel } >Cancel</Button>
+          <Button confirm onClick={ validate } >Save</Button>
         </section>
       </section>
     </main>
