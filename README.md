@@ -14,6 +14,8 @@ Interview Scheduler is a SPA (Single Page Application) for tracking students int
   + Days display currently remaining spots and capture updates after each modification
   + By not inserting student's name or not selecting interviewer during saving proccess, error message will pop-up
 
+https://user-images.githubusercontent.com/95319447/173699118-06a72dfe-5beb-49bc-8863-e65b16615967.mp4
+
 
 ## Setup
 The client and the API server must be both running.
