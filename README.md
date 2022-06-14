@@ -17,6 +17,14 @@ Interview Scheduler is a SPA (Single Page Application) for tracking students int
 https://user-images.githubusercontent.com/95319447/173699118-06a72dfe-5beb-49bc-8863-e65b16615967.mp4
 
 
+https://user-images.githubusercontent.com/95319447/173699348-fe5b6927-7e40-4f6b-8bbe-3d57d1242d4f.mp4
+
+
+
+https://user-images.githubusercontent.com/95319447/173699391-933fd95c-5b00-4aec-b44d-3d3168176e53.mp4
+
+
+
 ## Setup
 The client and the API server must be both running.
 
