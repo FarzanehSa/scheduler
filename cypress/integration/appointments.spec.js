@@ -11,9 +11,8 @@ describe("Appointment", () => {
     cy.contains("Monday");
   })
 
-  xit("should book an interview", () => {
+  it("should book an interview", () => {
 
-    cy.wait(1000)
     // 1. Clicks on the "Add" button in the second appointment
     cy.get("[alt=Add]")
       .first()
@@ -30,18 +29,14 @@ describe("Appointment", () => {
     // 5. Sees the booked appointment
     cy.contains(".appointment__card--show", "Lydia Miller-Jones");
     cy.contains(".appointment__card--show", "Sylvia Palmer");
-    cy.wait(5000)
   });
 
-  xit("should edit an interview", () => {
+  it("should edit an interview", () => {
 
-    cy.wait(1000)
     // 1. Clicks the edit button for the existing appointment
-
       cy.get("[alt=Edit]")
       .first()
       .invoke("show")
-      .wait(5000)
       .click();
     // 2. Changes the name and interviewer
     cy.get("[data-testid=student-name-input]")
@@ -55,7 +50,6 @@ describe("Appointment", () => {
     // 4. Sees the edit to the appointment
     cy.contains(".appointment__card--show", "Sam Smith");
     cy.contains(".appointment__card--show", "Tori Malcolm");
-    cy.wait(5000)
   });
 
   it("should cancel an interview", () => {
@@ -64,9 +58,7 @@ describe("Appointment", () => {
     // 1. Clicks the delete button for the existing appointment
     cy.get("[alt=Delete]")
       .first()
-      .wait(2000)
       .click({force: true});
-    cy.wait(2000)
     // 2. Clicks the confirm button
     cy.contains("Confirm")
       .click();
@@ -78,7 +70,6 @@ describe("Appointment", () => {
 
     cy.contains(".appointment__card--show", "Archie Cohen")
       .should("not.exist");
-
   });
 
 });
