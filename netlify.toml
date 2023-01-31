@@ -12,5 +12,5 @@
   command = "npm run build"
 
 [build.environment]
-  REACT_APP_API_BASE_URL = "https://scheduler-api.up.railway.app/"
-  REACT_APP_WEBSOCKET_URL = "wss://scheduler-api.up.railway.app/"
+  REACT_APP_API_BASE_URL = "https://scheduler1.up.railway.app/"
+  REACT_APP_WEBSOCKET_URL = "wss://scheduler1.up.railway.app/"
